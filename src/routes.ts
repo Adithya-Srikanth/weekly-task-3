@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { app } from "./index";
-import createIncomeHandler from "./controllers/income.controllers";
+import {
+  createIncomeHandler,
+  getIncomeHandler,
+} from "./controllers/income.controllers";
 import validateRequest from "./middlewares/validate";
 import {
   createExpenseSchema,
@@ -17,8 +20,9 @@ const router = () => {
   app.server.get("/healthCheck", (req: Request, res: Response) => {
     res.status(200).json({ status: "ok" });
   });
-
+  app.server.get("/api/income", getIncomeHandler);
   app.server.post("/api/income", createIncomeHandler);
+
   app.server.get("/api/expenses", getExpensesHandler);
   app.server.post(
     "/api/expenses",
